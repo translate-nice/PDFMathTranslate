@@ -91,10 +91,10 @@ lang_map = {
 
 # The following variable associate strings with page ranges
 page_map = {
-    "All": None,
-    "First": [0],
-    "First 5 pages": list(range(0, 5)),
-    "Others": None,
+    "全部": None,
+    "第一页": [0],
+    "前5页": list(range(0, 5)),
+    "其它": None,
 }
 
 # Check if this is a public demo, which has resource limits
@@ -494,17 +494,17 @@ def babeldoc_translate_file(**kwargs):
 
 # Global setup
 custom_blue = gr.themes.Color(
-    c50="#E8F3FF",
-    c100="#BEDAFF",
-    c200="#94BFFF",
-    c300="#6AA1FF",
-    c400="#4080FF",
-    c500="#165DFF",  # Primary color
-    c600="#0E42D2",
-    c700="#0A2BA6",
-    c800="#061D79",
-    c900="#03114D",
-    c950="#020B33",
+    c50="#F0EFFF",  # 较浅的背景色
+    c100="#D1CDFF",  # 浅色背景
+    c200="#B2ACFF",  # 较浅的辅助色
+    c300="#938BFF",  # 中等浅色
+    c400="#746AFF",  # 中等色
+    c500="#5954CB",  # 主色调
+    c600="#4641A6",  # 中等深色
+    c700="#343082",  # 较深的辅助色
+    c800="#23205D",  # 深色背景
+    c900="#121039",  # 非常深的背景色
+    c950="#0A0826",  # 最深的背景色
 )
 
 custom_css = """
@@ -555,6 +555,7 @@ tech_details_string = f"""
                 """
 cancellation_event_map = {}
 
+logo_path = "https://game-1257928604.cos.ap-guangzhou.myqcloud.com/icon-128-tinify.png"  # 替换为你的 Logo 路径或在线链接
 
 # The following code creates the GUI
 with gr.Blocks(
@@ -566,7 +567,12 @@ with gr.Blocks(
     head=demo_recaptcha if flag_demo else "",
 ) as demo:
     gr.Markdown(
-        "# [PDFMathTranslate @ GitHub](https://github.com/Byaidu/PDFMathTranslate)"
+        f"""
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <img src="{logo_path}" alt="Logo" style="width: 50px; height: 50px;" />
+            <h1 style="margin: 0;">米豆子</h1>
+        </div>
+        """
     )
 
     with gr.Row():
@@ -578,20 +584,20 @@ with gr.Blocks(
                 value="File",
             )
             file_input = gr.File(
-                label="File",
+                label="文件",
                 file_count="single",
                 file_types=[".pdf"],
                 type="filepath",
                 elem_classes=["input-file"],
             )
             link_input = gr.Textbox(
-                label="Link",
+                label="链接",
                 visible=False,
                 interactive=True,
             )
-            gr.Markdown("## Option")
+            gr.Markdown("## 选项")
             service = gr.Dropdown(
-                label="Service",
+                label="服务",
                 choices=enabled_services,
                 value=enabled_services[0],
             )
@@ -605,18 +611,18 @@ with gr.Blocks(
                 )
             with gr.Row():
                 lang_from = gr.Dropdown(
-                    label="Translate from",
+                    label="原文语言",
                     choices=lang_map.keys(),
                     value=ConfigManager.get("PDF2ZH_LANG_FROM", "English"),
                 )
                 lang_to = gr.Dropdown(
-                    label="Translate to",
+                    label="目标语言",
                     choices=lang_map.keys(),
                     value=ConfigManager.get("PDF2ZH_LANG_TO", "Simplified Chinese"),
                 )
             page_range = gr.Radio(
                 choices=page_map.keys(),
-                label="Pages",
+                label="页数",
                 value=list(page_map.keys())[0],
             )
 
@@ -697,12 +703,12 @@ with gr.Blocks(
                 label="reCAPTCHA Response", elem_id="verify", visible=False
             )
             recaptcha_box = gr.HTML('<div id="recaptcha-box"></div>')
-            translate_btn = gr.Button("Translate", variant="primary")
-            cancellation_btn = gr.Button("Cancel", variant="secondary")
-            tech_details_tog = gr.Markdown(
-                tech_details_string,
-                elem_classes=["secondary-text"],
-            )
+            translate_btn = gr.Button("翻译", variant="primary")
+            cancellation_btn = gr.Button("取消", variant="secondary")
+            # tech_details_tog = gr.Markdown(
+            #     tech_details_string,
+            #     elem_classes=["secondary-text"],
+            # )
             page_range.select(on_select_page, page_range, page_input)
             service.select(
                 on_select_service,
