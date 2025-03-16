@@ -357,7 +357,6 @@ tech_details_string = f"""
                 """
 cancellation_event_map = {}
 
-logo_path = "https://game-1257928604.cos.ap-guangzhou.myqcloud.com/icon-128-tinify.png"  # 替换为你的 Logo 路径或在线链接
 
     # gr.Markdown(
     #     "# [PDFMathTranslate @ GitHub](https://github.com/Byaidu/PDFMathTranslate)"
@@ -372,7 +371,7 @@ with gr.Blocks(
     css=custom_css,
     head=demo_recaptcha if flag_demo else "",
 ) as demo:
-      gr.Markdown(
+    gr.Markdown(
         f"""
         <div style="display: flex; align-items: center; gap: 10px;">
             <img src="{logo_path}" alt="Logo" style="width: 50px; height: 50px;" />
@@ -489,10 +488,10 @@ with gr.Blocks(
             recaptcha_box = gr.HTML('<div id="recaptcha-box"></div>')
             translate_btn = gr.Button("Translate", variant="primary")
             cancellation_btn = gr.Button("Cancel", variant="secondary")
-            # tech_details_tog = gr.Markdown(
-            #     tech_details_string,
-            #     elem_classes=["secondary-text"],
-            # )
+            tech_details_tog = gr.Markdown(
+                tech_details_string,
+                elem_classes=["secondary-text"],
+            )
             page_range.select(on_select_page, page_range, page_input)
             service.select(
                 on_select_service,
