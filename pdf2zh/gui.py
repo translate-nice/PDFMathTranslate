@@ -358,10 +358,6 @@ tech_details_string = f"""
 cancellation_event_map = {}
 
 
-    # gr.Markdown(
-    #     "# [PDFMathTranslate @ GitHub](https://github.com/Byaidu/PDFMathTranslate)"
-    #     "如遇到排队或错误，请点击上方复制该创空间使用（免费cpu资源即可）"
-    # )
 # The following code creates the GUI
 with gr.Blocks(
     title="PDFMathTranslate - PDF Translation with preserved formats",
@@ -372,12 +368,8 @@ with gr.Blocks(
     head=demo_recaptcha if flag_demo else "",
 ) as demo:
     gr.Markdown(
-        f"""
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <img src="{logo_path}" alt="Logo" style="width: 50px; height: 50px;" />
-            <h1 style="margin: 0;">米豆子（PDF翻译需要时间，请耐心等待，）</h1>
-        </div>
-        """
+        "# [米豆子翻译](https://www.nezuko.cn)"
+        "翻译PDF比较久，请耐心等待..."
     )
 
     with gr.Row():
